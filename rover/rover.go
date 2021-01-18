@@ -5,6 +5,9 @@ import "fmt"
 // Driver takes rover in a direction
 type Driver func(step int8)
 
+// Rotator takes rover in a direction
+type Rotator func(com string)
+
 // Rover properties
 type Rover struct {
 	LocX int8
@@ -12,7 +15,7 @@ type Rover struct {
 	Dir  string
 
 	drivers  map[string]Driver
-	rotators map[string]func()
+	rotators map[string]Rotator
 	steppers map[string]int8
 }
 
@@ -30,7 +33,7 @@ func NewRover(x, y int8, dir string) (r *Rover) {
 	r.drivers["NORTH"] = r.GoNorth
 	r.drivers["SOUTH"] = r.GoSouth
 
-	r.rotators = make(map[string]func())
+	r.rotators = make(map[string]Rotator)
 	r.rotators["EAST"] = r.FromEast
 	r.rotators["WEST"] = r.FromWest
 	r.rotators["NORTH"] = r.FromNorth
@@ -69,28 +72,32 @@ func (r *Rover) GoSouth(step int8) {
 }
 
 // Rotate is the rotating force
-func (r *Rover) Rotate() {
-	r.rotators[r.Dir]()
+func (r *Rover) Rotate(com string) {
+	r.rotators[r.Dir](com)
 }
 
 // FromEast rotates the rover east
-func (r *Rover) FromEast() {
-	r.Dir = "NORTH"
+func (r *Rover) FromEast(com string) {
+	options := map[string]string{"L": "NORTH", "R": "SOUTH"}
+	r.Dir = options[com]
 }
 
 // FromWest rotates the rover west
-func (r *Rover) FromWest() {
-	r.Dir = "SOUTH"
+func (r *Rover) FromWest(com string) {
+	options := map[string]string{"L": "SOUTH", "R": "NORTH"}
+	r.Dir = options[com]
 }
 
 // FromNorth rotates the rover north
-func (r *Rover) FromNorth() {
-	r.Dir = "WEST"
+func (r *Rover) FromNorth(com string) {
+	options := map[string]string{"L": "WEST", "R": "EAST"}
+	r.Dir = options[com]
 }
 
 // FromSouth rotates the rover south
-func (r *Rover) FromSouth() {
-	r.Dir = "EAST"
+func (r *Rover) FromSouth(com string) {
+	options := map[string]string{"L": "EAST", "R": "WEST"}
+	r.Dir = options[com]
 }
 
 // Report outputs the current status of rover
@@ -117,12 +124,12 @@ func (r *Rover) Backward() string {
 
 // RotateLeft rotates the rover 90° left
 func (r *Rover) RotateLeft() string {
-	r.Rotate()
+	r.Rotate("L")
 	return r.Report()
 }
 
 // RotateRight rotates the rover 90° right
 func (r *Rover) RotateRight() string {
-	r.Rotate()
+	r.Rotate("R")
 	return r.Report()
 }
