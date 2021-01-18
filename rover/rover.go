@@ -133,3 +133,8 @@ func (r *Rover) RotateRight() string {
 	r.Rotate("R")
 	return r.Report()
 }
+
+// RunMission runs multiple commands
+func (r *Rover) RunMission(com string) (report string) {
+	return
+}
