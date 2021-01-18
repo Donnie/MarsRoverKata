@@ -69,13 +69,18 @@ func (r *Rover) TouchDown() string {
 }
 
 // Forward moves the rover one step in extant direction
-func (r *Rover) Forward() (out string) {
+func (r *Rover) Forward() string {
 	r.Drive("F")
 	return r.Report()
 }
 
 // Backward moves the rover one step against extant direction
-func (r *Rover) Backward() (out string) {
+func (r *Rover) Backward() string {
 	r.Drive("B")
+	return r.Report()
+}
+
+// RotateLeft rotates the rover 90° left
+func (r *Rover) RotateLeft() string {
 	return r.Report()
 }
