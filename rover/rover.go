@@ -14,6 +14,15 @@ type Rover struct {
 	drivers map[string]Driver
 }
 
+// NewRover creates a new rover
+func NewRover(x, y int8, dir string) Rover {
+	return Rover{
+		LocX: x,
+		LocY: y,
+		Dir:  dir,
+	}
+}
+
 // Drive is the driving force
 func (r *Rover) Drive() {
 	r.drivers = make(map[string]Driver)
@@ -56,6 +65,12 @@ func (r *Rover) TouchDown() string {
 
 // Forward moves the rover one step in extant direction
 func (r *Rover) Forward() string {
+	r.Drive()
+	return r.Report()
+}
+
+// Backward moves the rover one step against extant direction
+func (r *Rover) Backward() string {
 	r.Drive()
 	return r.Report()
 }
