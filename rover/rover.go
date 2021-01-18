@@ -13,3 +13,8 @@ type Rover struct {
 func (r *Rover) TouchDown() string {
 	return fmt.Sprintf(`(%d, %d) %s`, r.LocX, r.LocY, r.Dir)
 }
+
+// Forward moves the rover one step in extant direction
+func (r *Rover) Forward() (out string) {
+	return
+}
