@@ -1,5 +1,7 @@
 package rover
 
+import "fmt"
+
 // Rover properties
 type Rover struct {
 	LocX int8
@@ -9,5 +11,5 @@ type Rover struct {
 
 // TouchDown on a Planet
 func (r *Rover) TouchDown() string {
-	return "(0, 0) NORTH"
+	return fmt.Sprintf(`(%d, %d) %s`, r.LocX, r.LocY, r.Dir)
 }
