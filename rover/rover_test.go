@@ -47,3 +47,12 @@ func TestMissionMode(t *testing.T) {
 	found := rover.RunMission("FLFFFRFLB").Report()
 	require.Equal(t, expected, found)
 }
+
+func TestRunObstacleCourse(t *testing.T) {
+	rover := NewRover(4, 2, "EAST")
+	expected := "(2, 4) WEST STOPPED"
+	found := rover.AddObstacles([][]int{[]int{1, 4}, []int{3, 5}, []int{7, 4}}).
+		RunMission("LFFLFFFF").
+		Report()
+	require.Equal(t, expected, found)
+}

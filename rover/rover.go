@@ -10,9 +10,10 @@ type Rotator func(com string)
 
 // Rover properties
 type Rover struct {
-	Dir  string
-	LocX int
-	LocY int
+	Dir       string
+	LocX      int
+	LocY      int
+	Obstacles [][]int
 
 	drivers  map[string]Driver
 	rotators map[string]Rotator
@@ -95,5 +96,11 @@ func (r *Rover) RunMission(com string) *Rover {
 		}
 	}
 
+	return r
+}
+
+// AddObstacles adds obstacles' maps
+func (r *Rover) AddObstacles(obs [][]int) *Rover {
+	r.Obstacles = obs
 	return r
 }
