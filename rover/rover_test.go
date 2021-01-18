@@ -33,3 +33,10 @@ func TestRotateLeft(t *testing.T) {
 	found := rover.RotateLeft()
 	require.Equal(t, expected, found)
 }
+
+func TestRotateRight(t *testing.T) {
+	rover := NewRover(4, 2, "EAST")
+	expected := "(4, 2) SOUTH"
+	found := rover.RotateRight()
+	require.Equal(t, expected, found)
+}

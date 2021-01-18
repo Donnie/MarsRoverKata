@@ -120,3 +120,9 @@ func (r *Rover) RotateLeft() string {
 	r.Rotate()
 	return r.Report()
 }
+
+// RotateRight rotates the rover 90° right
+func (r *Rover) RotateRight() string {
+	r.Rotate()
+	return r.Report()
+}
