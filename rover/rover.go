@@ -14,6 +14,7 @@ type Rover struct {
 	LocX      int
 	LocY      int
 	Obstacles [][]int
+	Status    *string
 
 	drivers  map[string]Driver
 	rotators map[string]Rotator
@@ -49,6 +50,9 @@ func NewRover(x, y int, dir string) (r *Rover) {
 
 // Report outputs the current status of rover
 func (r *Rover) Report() string {
+	if r.Status != nil {
+		return fmt.Sprintf(`(%d, %d) %s %s`, r.LocX, r.LocY, r.Dir, *r.Status)
+	}
 	return fmt.Sprintf(`(%d, %d) %s`, r.LocX, r.LocY, r.Dir)
 }
 
@@ -83,7 +87,7 @@ func (r *Rover) RotateRight() *Rover {
 
 // RunMission runs multiple commands and provides report
 func (r *Rover) RunMission(com string) *Rover {
-	var comms = map[rune]func() *Rover{
+	comms := map[rune]func() *Rover{
 		'F': r.Forward,
 		'B': r.Backward,
 		'R': r.RotateRight,
@@ -91,9 +95,11 @@ func (r *Rover) RunMission(com string) *Rover {
 	}
 
 	for _, c := range com {
-		if val, ok := comms[c]; ok {
-			val()
+		val, ok := comms[c]
+		if !ok || r.detectObstacles(c) {
+			return r
 		}
+		val()
 	}
 
 	return r

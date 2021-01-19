@@ -7,5 +7,8 @@ When the rover moves forward in the extant direction or it moves backward agains
 ### Rotating Left and Right
 When the rover rotates on its axis the direction the rover faces changes.
 
+### Avoiding and detecting Obstacles
+When the rover is just about to hit an obstacle, it immediately stops and reports it's heading and reason.
+
 ## Testing
 To run the tests do `make test`
