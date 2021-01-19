@@ -8,20 +8,20 @@ func (r *Rover) drive(com string) *Rover {
 
 // goEast takes the rover east
 func (r *Rover) goEast(step int) {
-	r.LocY += step
+	r.LocX += step
 }
 
 // goWest takes the rover west
 func (r *Rover) goWest(step int) {
-	r.LocY -= step
+	r.LocX -= step
 }
 
 // goNorth takes the rover north
 func (r *Rover) goNorth(step int) {
-	r.LocX += step
+	r.LocY += step
 }
 
 // goSouth takes the rover south
 func (r *Rover) goSouth(step int) {
-	r.LocX -= step
+	r.LocY -= step
 }

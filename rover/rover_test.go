@@ -15,14 +15,14 @@ func TestTouchDown(t *testing.T) {
 
 func TestMoveForward(t *testing.T) {
 	rover := NewRover(4, 2, "EAST")
-	expected := "(4, 3) EAST"
+	expected := "(5, 2) EAST"
 	found := rover.Forward().Report()
 	require.Equal(t, expected, found)
 }
 
 func TestMoveBackward(t *testing.T) {
 	rover := NewRover(4, 2, "EAST")
-	expected := "(4, 1) EAST"
+	expected := "(3, 2) EAST"
 	found := rover.Backward().Report()
 	require.Equal(t, expected, found)
 }
